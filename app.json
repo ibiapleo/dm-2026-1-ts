@@ -52,8 +52,15 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "5c4c2310-87bb-424c-8d5a-b847a0a488b6"
+        "projectId": "e4b065ce-ef4b-456f-b299-41deaa279ded"
       }
-    }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e4b065ce-ef4b-456f-b299-41deaa279ded"
+    },
+    "owner": "ljoi2"
   }
 }
