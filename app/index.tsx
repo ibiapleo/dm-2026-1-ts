@@ -1,54 +1,64 @@
-import { SectionListExample } from "@/components/SectionListExample";
-import { useState } from "react";
-import { StyleSheet, Switch, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-// import { PizzaTranslator } from "@/components/PizzaTranslator";
-// import { FlatListExample } from "@/components/FlatListExample";
+import News from './pages/news';
 
-export default function Index() {
-  let MyComponent;
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  if (isEnabled) {
-    // MyComponent = <ScrollViewApp />;
-    // MyComponent = <FlatListExample />;
-    MyComponent = <SectionListExample />;
-  } else {
-    MyComponent = (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "flex-start",
-          alignItems: "center",
-          marginTop: 25,
-        }}
-      >
-        <Text style={styles.title}>Olá Turma!</Text>
-        {/* <PizzaTranslator /> */}
-      </View>
-    );
-  }
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1, alignItems: "center" }}>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        />
-        {MyComponent}
-      </View>
-    </SafeAreaView>
-  );
+type Screen = 'home' | 'news';
+
+export default function App() {
+    const [screen, setScreen] = useState<Screen>('home');
+
+    if (screen === 'news') {
+        return <News onBack={() => setScreen('home')} />;
+    }
+
+    return (
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                <Text style={styles.title}>Atividade React Native</Text>
+                <Text style={styles.subtitle}>ScrollView, tema com Switch e toggle com useState</Text>
+
+                <Pressable style={styles.button} onPress={() => setScreen('news')}>
+                    <Text style={styles.buttonText}>Abrir noticias</Text>
+                </Pressable>
+            </View>
+        </SafeAreaView>
+    )
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "blue",
-  },
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#f4f7fb',
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 24,
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: '800',
+        color: '#0f172a',
+        marginBottom: 10,
+    },
+    subtitle: {
+        fontSize: 15,
+        color: '#475569',
+        textAlign: 'center',
+        marginBottom: 28,
+    },
+    button: {
+        backgroundColor: '#2563eb',
+        borderRadius: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 12,
+    },
+    buttonText: {
+        color: '#ffffff',
+        fontSize: 16,
+        fontWeight: '700',
+    },
 });
